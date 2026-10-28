@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="cyan">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - KAPISH JARVIS</title>
+    <link rel="stylesheet" href="../css/settings.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="density-comfortable font-medium animations-on glow-on grid-on">
+    <!-- Ambient Background -->
+    <div class="ambient-grid"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <i class="fa-solid fa-microchip logo-icon"></i>
+                    <h1 class="logo-text">KAPISH<br><span>JARVIS</span></h1>
+                </div>
+                <div class="sidebar-subtitle">AI STUDENT CORE</div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item active">
+        <i class="fa-solid fa-house"></i> Dashboard
+    </a>
+
+    <a href="study.html" class="nav-item">
+        <i class="fa-solid fa-book-open"></i> Study Zone
+    </a>
+
+    <a href="tasks.html" class="nav-item">
+        <i class="fa-solid fa-list-check"></i> Tasks
+    </a>
+
+    <a href="notes.html" class="nav-item">
+        <i class="fa-solid fa-file-lines"></i> Notes
+    </a>
+
+    <a href="1.pdf" class="nav-item" download>
+        <i class="fa-solid fa-calendar-days"></i> Academic Calendar
+    </a>
+
+    <a href="timetable.html" class="nav-item">
+        <i class="fa-solid fa-calendar-days"></i> Timetable
+    </a>
+
+    <a href="flashcards.html" class="nav-item">
+        <i class="fa-solid fa-layer-group"></i> Flashcards
+    </a>
+
+    <a href="ai-assistant.html" class="nav-item">
+        <i class="fa-solid fa-brain"></i> AI Assistant
+    </a>
+
+    <a href="settings.html" class="nav-item">
+        <i class="fa-solid fa-gear"></i> Settings
+    </a>
+</nav>
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <div class="status-indicator online"></div>
+                    <span>SYSTEM ONLINE</span>
+                </div>
+                <div class="version-info">JARVIS CORE v1.0</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-title">
+                    <h2>SYSTEM SETTINGS</h2>
+                    <span class="subtitle">Configure your JARVIS student experience.</span>
+                </div>
+                <div class="header-controls">
+                    <div class="date-display" id="currentDate">--/--/----</div>
+                    <div class="time-display" id="currentTime">00:00:00</div>
+                    <div class="system-badge online">
+                        <i class="fa-solid fa-check-circle"></i> ONLINE
+                    </div>
+                    <button class="icon-btn" aria-label="Notifications" id="notificationBtn">
+                        <i class="fa-solid fa-bell"></i>
+                    </button>
+                    <div class="profile-avatar" id="headerAvatar">K</div>
+                </div>
+            </header>
+
+            <div class="settings-content">
+                <!-- Settings Hero -->
+                <div class="settings-hero">
+                    <div class="hero-left">
+                        <h1>JARVIS CONFIGURATION</h1>
+                        <p>Customize your dashboard, study environment, voice assistant and system preferences.</p>
+                        <div class="search-bar">
+                            <i class="fa-solid fa-search"></i>
+                            <input type="text" id="settingsSearch" placeholder="Search settings (Ctrl+K)...">
+                        </div>
+                    </div>
+                    <div class="hero-right">
+                        <div class="hero-status">
+                            <div class="status-title">JARVIS CORE</div>
+                            <div class="status-state">ONLINE</div>
+                            <div class="status-desc"><i class="fa-solid fa-check"></i> All systems operational</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Grid -->
+                <div class="settings-grid" id="settingsGrid">
+                    
+                    <!-- Profile & Personalization -->
+                    <section class="settings-card" data-search="profile name course initial">
+                        <div class="card-header">
+                            <i class="fa-solid fa-user-astronaut"></i>
+                            <h3>PROFILE & PERSONALIZATION</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Display Name</label>
+                                <input type="text" id="profName" value="Kapish" placeholder="Enter name">
+                            </div>
+                            <div class="form-group">
+                                <label>Profile Initial</label>
+                                <input type="text" id="profInitial" value="K" maxlength="2" placeholder="Ex: K">
+                            </div>
+                            <div class="form-group">
+                                <label>Student Role</label>
+                                <input type="text" id="profRole" value="Student" placeholder="Ex: Student">
+                            </div>
+                            <div class="form-group">
+                                <label>Course / Program</label>
+                                <input type="text" id="profCourse" value="MCA" placeholder="Ex: MCA">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Appearance -->
+                    <section class="settings-card" data-search="appearance theme color accent dark light size UI grid glow">
+                        <div class="card-header">
+                            <i class="fa-solid fa-palette"></i>
+                            <h3>APPEARANCE</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Theme</label>
+                                <select id="appTheme">
+                                    <option value="dark">Dark</option>
+                                    <option value="midnight">Midnight</option>
+                                    <option value="light">Light</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Accent Color</label>
+                                <div class="color-picker" id="colorPicker">
+                                    <div class="color-swatch active" data-color="cyan" style="background: #00e5ff;"></div>
+                                    <div class="color-swatch" data-color="blue" style="background: #0077ff;"></div>
+                                    <div class="color-swatch" data-color="purple" style="background: #9d00ff;"></div>
+                                    <div class="color-swatch" data-color="green" style="background: #00ff88;"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>UI Density</label>
+                                <select id="appDensity">
+                                    <option value="comfortable">Comfortable</option>
+                                    <option value="compact">Compact</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Font Size</label>
+                                <select id="appFontSize">
+                                    <option value="small">Small</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="large">Large</option>
+                                </select>
+                            </div>
+                            <div class="toggle-group">
+                                <span>Animations</span>
+                                <label class="switch"><input type="checkbox" id="appAnim" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="toggle-group">
+                                <span>Glow Effects</span>
+                                <label class="switch"><input type="checkbox" id="appGlow" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="toggle-group">
+                                <span>Background Grid</span>
+                                <label class="switch"><input type="checkbox" id="appGrid" checked><span class="slider"></span></label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Dashboard Preferences -->
+                    <section class="settings-card" data-search="dashboard preferences date time format landing">
+                        <div class="card-header">
+                            <i class="fa-solid fa-table-columns"></i>
+                            <h3>DASHBOARD PREFERENCES</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Default Landing Page</label>
+                                <select id="dashLanding">
+                                    <option value="dashboard">Dashboard</option>
+                                    <option value="study">Study Zone</option>
+                                    <option value="tasks">Tasks</option>
+                                    <option value="notes">Notes</option>
+                                    <option value="timetable">Timetable</option>
+                                    <option value="flashcards">Flashcards</option>
+                                    <option value="ai-assistant">AI Assistant</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Date Format</label>
+                                <select id="dashDate">
+                                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Time Format</label>
+                                <select id="dashTime">
+                                    <option value="12">12 Hour (AM/PM)</option>
+                                    <option value="24">24 Hour</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Week Starts On</label>
+                                <select id="dashWeek">
+                                    <option value="Monday">Monday</option>
+                                    <option value="Sunday">Sunday</option>
+                                </select>
+                            </div>
+                            <div class="toggle-group">
+                                <span>Show Greeting</span>
+                                <label class="switch"><input type="checkbox" id="dashGreeting" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="toggle-group">
+                                <span>Show System Status</span>
+                                <label class="switch"><input type="checkbox" id="dashStatus" checked><span class="slider"></span></label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Voice Control -->
+                    <section class="settings-card" data-search="voice control speech listen talk volume rate language">
+                        <div class="card-header">
+                            <i class="fa-solid fa-microphone-lines"></i>
+                            <h3>VOICE CONTROL</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-desc">Configure how JARVIS listens and responds.</p>
+                            <div class="toggle-group">
+                                <span>Voice Assistant Enabled</span>
+                                <label class="switch"><input type="checkbox" id="voiceEnabled" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="toggle-group">
+                                <span>Voice Responses</span>
+                                <label class="switch"><input type="checkbox" id="voiceResponses" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="toggle-group">
+                                <span>Auto Listen (Requires Permission)</span>
+                                <label class="switch"><input type="checkbox" id="voiceAuto"><span class="slider"></span></label>
+                            </div>
+                            <div class="form-group">
+                                <label>Recognition Language</label>
+                                <select id="voiceLang">
+                                    <option value="en-IN">English (India)</option>
+                                    <option value="en-US">English (US)</option>
+                                    <option value="hi-IN">Hindi (India)</option>
+                                </select>
+                            </div>
+                            <div class="form-group slider-group">
+                                <div class="slider-label"><span>Speech Rate</span> <span id="rateVal">1.0</span></div>
+                                <input type="range" id="voiceRate" min="0.5" max="2.0" step="0.1" value="1.0">
+                            </div>
+                            <div class="form-group slider-group">
+                                <div class="slider-label"><span>Speech Volume</span> <span id="volVal">1.0</span></div>
+                                <input type="range" id="voiceVol" min="0" max="1" step="0.1" value="1.0">
+                            </div>
+                            <button class="btn-action" id="btnTestVoice"><i class="fa-solid fa-volume-high"></i> TEST VOICE</button>
+                        </div>
+                    </section>
+
+                    <!-- Notifications -->
+                    <section class="settings-card" data-search="notifications alerts reminders browser permissions">
+                        <div class="card-header">
+                            <i class="fa-solid fa-bell-concierge"></i>
+                            <h3>NOTIFICATIONS</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="permission-box">
+                                <span>Browser Status: <strong id="notifStatus">Not Requested</strong></span>
+                                <button class="btn-outline" id="btnReqNotif">ENABLE NOTIFICATIONS</button>
+                            </div>
+                            <div class="toggle-group">
+                                <span>Task Reminders</span>
+                                <label class="switch"><input type="checkbox" id="notifTasks" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="toggle-group">
+                                <span>Class Reminders</span>
+                                <label class="switch"><input type="checkbox" id="notifClass" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="toggle-group">
+                                <span>Study Goal Reminders</span>
+                                <label class="switch"><input type="checkbox" id="notifStudy" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="form-group">
+                                <label>Reminder Timing</label>
+                                <select id="notifTiming">
+                                    <option value="5">5 minutes before</option>
+                                    <option value="10">10 minutes before</option>
+                                    <option value="15">15 minutes before</option>
+                                    <option value="30">30 minutes before</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Study Configuration -->
+                    <section class="settings-card" data-search="study configuration goals focus pomodoro break flashcard">
+                        <div class="card-header">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <h3>STUDY CONFIGURATION</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group slider-group">
+                                <div class="slider-label"><span>Daily Study Goal (Mins)</span> <span id="studyGoalVal">120</span></div>
+                                <input type="range" id="studyGoal" min="30" max="720" step="30" value="120">
+                            </div>
+                            <div class="form-group">
+                                <label>Focus Session (Mins)</label>
+                                <select id="studyFocus">
+                                    <option value="15">15</option>
+                                    <option value="25" selected>25 (Pomodoro)</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                    <option value="60">60</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Short Break (Mins)</label>
+                                <select id="studyShortBreak">
+                                    <option value="5" selected>5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Long Break (Mins)</label>
+                                <select id="studyLongBreak">
+                                    <option value="15" selected>15</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Sessions Before Long Break</label>
+                                <select id="studySessions">
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4" selected>4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Daily Flashcard Goal</label>
+                                <input type="number" id="studyFlashcards" value="20" min="5" max="100">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- AI Core Config -->
+                    <section class="settings-card" data-search="AI core connection artificial intelligence endpoint backend proxy">
+                        <div class="card-header">
+                            <i class="fa-solid fa-microchip"></i>
+                            <h3>AI CORE CONFIGURATION</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="ai-status-box">
+                                <div class="local-badge"><i class="fa-solid fa-server"></i> LOCAL ENGINE: <span>ACTIVE</span></div>
+                                <p>Basic commands run locally. Open-ended responses require a secure backend proxy.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>AI Backend Endpoint (Optional)</label>
+                                <input type="text" id="aiEndpoint" placeholder="https://your-secure-backend/api/chat">
+                                <small class="warning-text"><i class="fa-solid fa-triangle-exclamation"></i> NEVER paste secret API keys here.</small>
+                            </div>
+                            <button class="btn-action" id="btnTestAI"><i class="fa-solid fa-satellite-dish"></i> TEST CONNECTION</button>
+                        </div>
+                    </section>
+
+                    <!-- System Info & Privacy -->
+                    <section class="settings-card" data-search="system information privacy local storage security version about">
+                        <div class="card-header">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <h3>PRIVACY & SYSTEM INFO</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="privacy-box">
+                                <h4><i class="fa-solid fa-hard-drive"></i> LOCAL DATA ENABLED</h4>
+                                <p>Dashboard data is stored locally in this browser. No data is sent to external servers unless the AI endpoint is configured.</p>
+                            </div>
+                            <ul class="system-list">
+                                <li><span>JARVIS Version:</span> <strong>v1.0.0</strong></li>
+                                <li><span>Platform:</span> <strong>Browser</strong></li>
+                                <li><span>Storage Mode:</span> <strong>LocalStorage</strong></li>
+                                <li><span>Voice API:</span> <strong id="infoVoice">Checking...</strong></li>
+                                <li><span>Speech Synthesis:</span> <strong id="infoSpeech">Checking...</strong></li>
+                                <li><span>Total Storage Used:</span> <strong id="infoStorage">Calculating...</strong></li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Data & Storage Management -->
+                <div class="data-management-section">
+                    <h3><i class="fa-solid fa-database"></i> DATA & STORAGE MANAGEMENT</h3>
+                    <div class="data-buttons-grid">
+                        <button class="btn-primary" id="btnExport"><i class="fa-solid fa-download"></i> EXPORT ALL DATA</button>
+                        
+                        <input type="file" id="fileImport" accept=".json" style="display: none;">
+                        <button class="btn-primary" id="btnImportTrigger"><i class="fa-solid fa-upload"></i> IMPORT DATA</button>
+                        
+                        <button class="btn-warning" onclick="requestClear('tasks')"><i class="fa-solid fa-list"></i> CLEAR TASKS</button>
+                        <button class="btn-warning" onclick="requestClear('notes')"><i class="fa-solid fa-file"></i> CLEAR NOTES</button>
+                        <button class="btn-warning" onclick="requestClear('timetable')"><i class="fa-solid fa-calendar"></i> CLEAR TIMETABLE</button>
+                        <button class="btn-warning" onclick="requestClear('flashcards')"><i class="fa-solid fa-layer-group"></i> CLEAR CARDS</button>
+                        <button class="btn-warning" onclick="requestClear('conversations')"><i class="fa-solid fa-comments"></i> CLEAR CHATS</button>
+                        
+                        <button class="btn-danger" id="btnResetAll"><i class="fa-solid fa-skull-crossbones"></i> SYSTEM RESET</button>
+                    </div>
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="settings-footer">
+                    <button class="btn-secondary" id="btnRestoreDefaults">RESTORE DEFAULTS</button>
+                    <button class="btn-save" id="btnSaveSettings">SAVE CHANGES (Ctrl+S)</button>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal">
+            <h3 id="modalTitle">CONFIRM ACTION</h3>
+            <p id="modalDesc">Are you sure you want to proceed?</p>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="modalCancel">CANCEL</button>
+                <button class="btn-danger" id="modalConfirm">CONFIRM</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- 1. JARVIS Core Architecture (Must load first) -->
+<script src="../js/core/storage.js"></script>
+<script src="../js/core/navigation.js"></script>
+<script src="../js/core/notifications.js"></script>
+
+<!-- 2. Voice Components -->
+<script src="../js/core/voice-ui.js"></script>
+<script src="../js/voice/speech-recognition.js"></script>
+<script src="../js/voice/speech-synthesis.js"></script>
+<script src="../js/voice/commands.js"></script>
+
+<!-- 3. Master System Init (Initializes all the above) -->
+<script src="../js/core/api.js"></script>
+<script src="../js/core/system.js"></script>
+
+<!-- 4. Single Page Script (Loads last, uses the core) -->
+<!-- Use ONLY ONE of these depending on the HTML file -->
+<script src="../js/settings.js"></script>
+</body>
+</html>

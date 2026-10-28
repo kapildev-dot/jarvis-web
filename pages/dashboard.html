@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="cyan">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - KAPISH JARVIS</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="animations-on glow-on grid-on">
+    <!-- Ambient Background -->
+    <div class="ambient-grid"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <i class="fa-solid fa-microchip logo-icon"></i>
+                    <h1 class="logo-text">KAPISH<br><span>JARVIS</span></h1>
+                </div>
+                <div class="sidebar-subtitle">COMMAND CENTER</div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item active">
+        <i class="fa-solid fa-house"></i> Dashboard
+    </a>
+
+    <a href="study.html" class="nav-item">
+        <i class="fa-solid fa-book-open"></i> Study Zone
+    </a>
+
+    <a href="tasks.html" class="nav-item">
+        <i class="fa-solid fa-list-check"></i> Tasks
+    </a>
+
+    <a href="notes.html" class="nav-item">
+        <i class="fa-solid fa-file-lines"></i> Notes
+    </a>
+
+    <a href="1.pdf" class="nav-item" download>
+        <i class="fa-solid fa-calendar-days"></i> Academic Calendar
+    </a>
+
+    <a href="timetable.html" class="nav-item">
+        <i class="fa-solid fa-calendar-days"></i> Timetable
+    </a>
+
+    <a href="flashcards.html" class="nav-item">
+        <i class="fa-solid fa-layer-group"></i> Flashcards
+    </a>
+
+    <a href="ai-assistant.html" class="nav-item">
+        <i class="fa-solid fa-brain"></i> AI Assistant
+    </a>
+
+    <a href="settings.html" class="nav-item">
+        <i class="fa-solid fa-gear"></i> Settings
+    </a>
+</nav>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <div class="status-indicator online"></div>
+                    <span>SYSTEM ONLINE</span>
+                </div>
+                <div class="version-info">JARVIS CORE v1.1</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-greeting" id="headerGreeting">
+                    <h2>GOOD MORNING, KAPISH</h2>
+                    <span class="subtitle" id="headerDate">Saturday, 20 September 2026</span>
+                </div>
+                <div class="header-controls">
+                    <div class="time-display" id="headerTime">00:00:00</div>
+                    <button class="btn-refresh" id="btnRefresh" aria-label="Refresh Data"><i class="fa-solid fa-rotate"></i> REFRESH</button>
+                    <button class="icon-btn" aria-label="Notifications" id="notificationBtn">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notif-badge hidden" id="notifBadge">0</span>
+                    </button>
+                    <div class="profile-avatar" id="headerAvatar">K</div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-scroll-area">
+                
+                <!-- Stats Row -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <i class="fa-solid fa-calendar-day stat-icon"></i>
+                        <div class="stat-info">
+                            <span class="stat-label">TODAY'S CLASSES</span>
+                            <span class="stat-value" id="statClasses">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fa-solid fa-list-check stat-icon"></i>
+                        <div class="stat-info">
+                            <span class="stat-label">PENDING TASKS</span>
+                            <span class="stat-value" id="statTasks">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fa-solid fa-clock stat-icon"></i>
+                        <div class="stat-info">
+                            <span class="stat-label">STUDY TIME</span>
+                            <span class="stat-value" id="statStudy">0h 0m</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fa-solid fa-layer-group stat-icon"></i>
+                        <div class="stat-info">
+                            <span class="stat-label">FLASHCARDS DUE</span>
+                            <span class="stat-value" id="statFlashcards">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Grid Layout -->
+                <div class="dashboard-grid">
+                    
+                    <!-- Left Column -->
+                    <div class="grid-col left-col">
+                        <!-- Next Class Hero -->
+                        <div class="dash-card hero-card next-class-card">
+                            <div class="card-header borderless">
+                                <h3><i class="fa-solid fa-bolt"></i> NEXT CLASS</h3>
+                                <span class="status-badge upcoming" id="nextClassStatus">UPCOMING</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="next-class-info" id="nextClassInfo">
+                                    <h1 class="class-subject" id="ncSubject">No Classes Today</h1>
+                                    <div class="class-details">
+                                        <span><i class="fa-regular fa-clock"></i> <span id="ncTime">--:--</span></span>
+                                        <span><i class="fa-solid fa-location-dot"></i> <span id="ncRoom">--</span></span>
+                                    </div>
+                                </div>
+                                <div class="countdown-box" id="ncCountdownBox">
+                                    <span class="countdown-label">STARTS IN</span>
+                                    <div class="countdown-timer" id="ncTimer">--:--:--</div>
+                                    <div class="progress-bar-bg hidden" id="ncProgressBg">
+                                        <div class="progress-bar-fill" id="ncProgressFill" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Today's Schedule -->
+                        <div class="dash-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-calendar-days"></i> TODAY'S SCHEDULE</h3>
+                            </div>
+                            <div class="card-body schedule-list" id="todayScheduleList">
+                                <div class="empty-state">No schedule data available.</div>
+                            </div>
+                        </div>
+
+                        <!-- Academic Overview -->
+                        <div class="dash-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-graduation-cap"></i> ACADEMIC OVERVIEW</h3>
+                            </div>
+                            <div class="card-body academic-overview">
+                                <div class="attendance-circle">
+                                    <svg viewBox="0 0 36 36" class="circular-chart">
+                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path class="circle" id="attendanceCircle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <text x="18" y="20.35" class="percentage" id="attendancePercent">--%</text>
+                                    </svg>
+                                    <span>Overall Attendance</span>
+                                </div>
+                                <div class="academic-stats">
+                                    <div class="a-stat"><span>Attended:</span> <strong id="attAttended">--</strong></div>
+                                    <div class="a-stat"><span>Missed:</span> <strong id="attMissed">--</strong></div>
+                                    <div class="a-stat"><span>Recorded:</span> <strong id="attRecorded">--</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Center Column -->
+                    <div class="grid-col center-col">
+                        <!-- Task Center -->
+                        <div class="dash-card task-center-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-list-check"></i> TASK CENTER</h3>
+                                <button class="btn-icon-small" id="btnQuickTask" title="Add Task"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                            <div class="card-body">
+                                <div class="task-summary">
+                                    <span class="t-badge pending"><span id="tcPending">0</span> Pending</span>
+                                    <span class="t-badge overdue"><span id="tcOverdue">0</span> Overdue</span>
+                                </div>
+                                <div class="task-list" id="dashboardTaskList">
+                                    <div class="empty-state">No pending tasks.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Study Progress -->
+                        <div class="dash-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-stopwatch"></i> STUDY PROGRESS</h3>
+                            </div>
+                            <div class="card-body study-progress-container">
+                                <div class="study-ring" id="studyRing" style="--progress: 0deg;">
+                                    <div class="study-ring-inner">
+                                        <span class="sr-value" id="srCompleted">0h 0m</span>
+                                        <span class="sr-label">COMPLETED</span>
+                                    </div>
+                                </div>
+                                <div class="study-details">
+                                    <div class="sd-item"><span>GOAL</span><strong id="sdGoal">2h 0m</strong></div>
+                                    <div class="sd-item"><span>REMAINING</span><strong id="sdRemaining">2h 0m</strong></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Weekly Study Graph -->
+                        <div class="dash-card">
+                            <div class="card-header borderless">
+                                <h3><i class="fa-solid fa-chart-simple"></i> WEEKLY ACTIVITY</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="css-bar-chart" id="weeklyChart">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="grid-col right-col">
+                        <!-- JARVIS Recommendation -->
+                        <div class="dash-card recommendation-card">
+                            <div class="card-header borderless">
+                                <h3><i class="fa-solid fa-brain"></i> JARVIS ANALYSIS</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="recommendation-text" id="jarvisRecommendation">Analyzing current data...</p>
+                                <div class="today-focus">
+                                    <h4>TODAY'S FOCUS</h4>
+                                    <ul class="focus-list" id="focusList">
+                                        <li>Loading recommendations...</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flashcard Review -->
+                        <div class="dash-card flashcard-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-layer-group"></i> FLASHCARD REVIEW</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="fc-stats">
+                                    <div class="fc-stat-item"><span id="fcDue">0</span> Due Today</div>
+                                    <div class="fc-stat-item"><span id="fcMastered">0</span> Mastered</div>
+                                    <div class="fc-stat-item"><span id="fcTotal">0</span> Total Cards</div>
+                                </div>
+                                <button class="btn-action w-100 mt-15" onclick="window.JARVIS.Navigation.openFlashcards()">START REVIEW</button>
+                            </div>
+                        </div>
+
+                        <!-- Knowledge Base Snapshot -->
+                        <div class="dash-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-file-lines"></i> KNOWLEDGE BASE</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="kb-summary">
+                                    <span>Total: <strong id="kbTotal">0</strong></span>
+                                    <span>Pinned: <strong id="kbPinned">0</strong></span>
+                                </div>
+                                <div class="kb-recent" id="kbRecentList">
+                                    <div class="empty-state">No notes created yet.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="dash-card">
+                            <div class="card-header borderless">
+                                <h3><i class="fa-solid fa-bolt"></i> QUICK ACTIONS</h3>
+                            </div>
+                            <div class="card-body quick-actions-grid">
+                                <button class="qa-btn" onclick="window.JARVIS.Navigation.openStudy()"><i class="fa-solid fa-stopwatch"></i> Focus</button>
+                                <button class="qa-btn" id="qaBtnTask"><i class="fa-solid fa-check-double"></i> Add Task</button>
+                                <button class="qa-btn" onclick="window.JARVIS.Navigation.openNotes()"><i class="fa-solid fa-pen-to-square"></i> Note</button>
+                                <button class="qa-btn" id="qaBtnVoice"><i class="fa-solid fa-microphone"></i> Ask JARVIS</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Quick Add Task Modal -->
+    <div class="modal-overlay" id="quickTaskModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>QUICK ADD TASK</h3>
+                <button class="btn-close" id="closeTaskModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Task Title</label>
+                    <input type="text" id="qtTitle" placeholder="What needs to be done?">
+                </div>
+                <div class="form-group-row">
+                    <div class="form-group w-50">
+                        <label>Category</label>
+                        <select id="qtCategory">
+                            <option value="Study">Study</option>
+                            <option value="Assignment">Assignment</option>
+                            <option value="Project">Project</option>
+                            <option value="Personal">Personal</option>
+                        </select>
+                    </div>
+                    <div class="form-group w-50">
+                        <label>Priority</label>
+                        <select id="qtPriority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date" id="qtDate">
+                </div>
+                <button class="btn-action w-100" id="btnSaveQuickTask">SAVE TASK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Dropdown -->
+    <div class="notification-dropdown" id="notificationDropdown">
+        <h4><i class="fa-solid fa-bell"></i> JARVIS ALERTS</h4>
+        <div class="notif-list" id="notifList">
+            <div class="empty-state">No new notifications.</div>
+        </div>
+    </div>
+
+    <!-- JARVIS Core Architecture -->
+    <script src="../js/core/storage.js"></script>
+    <script src="../js/core/navigation.js"></script>
+    <script src="../js/core/notifications.js"></script>
+    <script src="../js/core/voice-ui.js"></script>
+    <script src="../js/voice/speech-recognition.js"></script>
+    <script src="../js/voice/speech-synthesis.js"></script>
+    <script src="../js/voice/commands.js"></script>
+    <script src="../js/core/system.js"></script>
+
+    <!-- Page Script -->
+    <script src="../js/core/api.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>

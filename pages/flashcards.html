@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAPISH JARVIS – Smart Flashcards</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Flashcards CSS -->
+    <link rel="stylesheet" href="../css/flashcards.css">
+    <!-- Flashcards JS -->
+    <script src="../js/flashcards.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <span class="logo-main">KAPISH</span>
+            <span class="logo-sub">JARVIS</span>
+            <div class="sidebar-status">
+                <span class="status-dot"></span> SYSTEM ONLINE
+            </div>
+        </div>
+
+      <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item active">
+        <i class="fa-solid fa-house"></i> Dashboard
+    </a>
+
+    <a href="study.html" class="nav-item">
+        <i class="fa-solid fa-book-open"></i> Study Zone
+    </a>
+
+    <a href="tasks.html" class="nav-item">
+        <i class="fa-solid fa-list-check"></i> Tasks
+    </a>
+
+    <a href="notes.html" class="nav-item">
+        <i class="fa-solid fa-file-lines"></i> Notes
+    </a>
+
+    <a href="1.pdf" class="nav-item" download>
+        <i class="fa-solid fa-calendar-days"></i> Academic Calendar
+    </a>
+
+    <a href="timetable.html" class="nav-item">
+        <i class="fa-solid fa-calendar-days"></i> Timetable
+    </a>
+
+    <a href="flashcards.html" class="nav-item">
+        <i class="fa-solid fa-layer-group"></i> Flashcards
+    </a>
+
+    <a href="ai-assistant.html" class="nav-item">
+        <i class="fa-solid fa-brain"></i> AI Assistant
+    </a>
+
+    <a href="settings.html" class="nav-item">
+        <i class="fa-solid fa-gear"></i> Settings
+    </a>
+</nav>
+
+        <div class="sidebar-footer">
+            <p>KAPISH JARVIS v1.0</p>
+            <span>SYSTEM ONLINE</span>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-titles">
+                    <h1 class="header-title">SMART FLASHCARDS</h1>
+                    <span class="header-subtitle">Learn faster. Revise smarter.</span>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="live-clock-panel">
+                    <div id="live-time" class="live-time">--:--:--</div>
+                    <div id="live-date" class="live-date">--</div>
+                </div>
+
+                <div class="notification-wrapper">
+                    <button class="icon-btn" id="notification-btn" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge" id="notif-badge">0</span>
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div class="notification-dropdown" id="notification-dropdown">
+                        <div class="dropdown-header">NOTIFICATIONS</div>
+                        <div id="notif-list"></div>
+                    </div>
+                </div>
+                
+                <div class="profile-area">
+                    <div class="avatar">K</div>
+                    <div class="profile-info">
+                        <span class="profile-name">Kapish</span>
+                        <span class="profile-role">MCA Student</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Flashcards Workspace -->
+        <div class="flashcards-workspace" id="main-workspace">
+            
+            <!-- Global Dashboard View -->
+            <div id="view-dashboard" class="view-section active">
+                <section class="welcome-section">
+                    <div>
+                        <h2 class="greeting" id="greeting-text">GOOD MORNING, KAPISH</h2>
+                        <p class="subtitle">Your active knowledge decks and revision status.</p>
+                    </div>
+                </section>
+
+                <section class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="color: var(--primary-cyan); background: rgba(0, 240, 255, 0.1);"><i class="fas fa-layer-group"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">TOTAL CARDS</span>
+                            <span class="stat-value" id="stat-total-cards">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="color: var(--success); background: rgba(0, 230, 118, 0.1);"><i class="fas fa-brain"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">MASTERED</span>
+                            <span class="stat-value" id="stat-mastered">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="color: var(--warning); background: rgba(255, 234, 0, 0.1);"><i class="fas fa-history"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">TO REVIEW</span>
+                            <span class="stat-value" id="stat-to-review">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="color: var(--primary-purple); background: rgba(138, 43, 226, 0.1);"><i class="fas fa-fire"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">STUDY STREAK</span>
+                            <span class="stat-value" id="stat-streak">0 DAYS</span>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="main-layout">
+                    <!-- Left: Decks & Review Queue -->
+                    <div class="layout-left">
+                        <div class="glass-panel section-panel">
+                            <div class="panel-header">
+                                <h3>MY DECKS</h3>
+                                <button class="btn-glow" id="btn-create-deck"><i class="fas fa-plus"></i> CREATE DECK</button>
+                            </div>
+                            <div class="decks-grid" id="decks-grid">
+                                <!-- Decks injected via JS -->
+                            </div>
+                        </div>
+
+                        <div class="glass-panel section-panel mt-2">
+                            <div class="panel-header">
+                                <h3>TODAY'S REVIEW</h3>
+                            </div>
+                            <div id="review-queue-list" class="review-queue">
+                                <!-- Review subjects injected via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: JARVIS, Goal, Streak -->
+                    <div class="layout-right">
+                        <!-- JARVIS Core -->
+                        <div class="jarvis-status-panel glass-panel">
+                            <div class="panel-header">
+                                <h3><i class="fas fa-microchip"></i> JARVIS LEARNING CORE</h3>
+                            </div>
+                            <div class="status-lines">
+                                <div class="status-line"><span class="lbl">SYSTEM:</span><span class="val success">ONLINE</span></div>
+                                <div class="status-line"><span class="lbl">FLASHCARDS:</span><span class="val">READY</span></div>
+                                <div class="status-line"><span class="lbl">REVIEW QUEUE:</span><span class="val highlight" id="jarvis-queue-count">0</span></div>
+                                <div class="status-line"><span class="lbl">TODAY'S PROGRESS:</span><span class="val text-cyan" id="jarvis-progress">0/30</span></div>
+                                <div class="status-line"><span class="lbl">MODE:</span><span class="val">FLASHCARD</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Daily Goal -->
+                        <div class="glass-panel widget-panel">
+                            <h3>TODAY'S FLASHCARD GOAL</h3>
+                            <div class="goal-info">
+                                <span class="goal-text" id="goal-text-display">0 / 30 cards</span>
+                                <span class="goal-pct highlight" id="goal-pct-display">0%</span>
+                            </div>
+                            <div class="goal-progress-bar">
+                                <div class="goal-progress-fill" id="goal-progress-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="goal-actions">
+                                <button class="btn-flat sm" data-goal-add="10">+10 GOAL</button>
+                                <button class="btn-flat sm" data-goal-add="20">+20 GOAL</button>
+                            </div>
+                        </div>
+
+                        <!-- Study Streak Calendar -->
+                        <div class="glass-panel widget-panel">
+                            <h3>STUDY STREAK</h3>
+                            <div class="streak-calendar" id="streak-calendar">
+                                <!-- JS Injection: MON ✓, TUE ✓, etc. -->
+                            </div>
+                        </div>
+
+                        <!-- Voice Widget -->
+                        <div class="glass-panel voice-card" id="voice-assistant-card">
+                            <h3>JARVIS VOICE CONTROL</h3>
+                            <div class="ai-orb" id="ai-orb">
+                                <div class="orb-ring ring-1"></div>
+                                <div class="orb-ring ring-2"></div>
+                                <div class="orb-center"><i class="fas fa-microphone"></i></div>
+                            </div>
+                            <p class="tap-text">TAP TO SPEAK</p>
+                            <div class="voice-feedback" id="voice-feedback">
+                                <p class="suggestion">Say:<br><i>"Start quiz"</i></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deck Details & Management View -->
+            <div id="view-deck-details" class="view-section" style="display: none;">
+                <div class="view-nav-bar">
+                    <button class="btn-back" id="btn-back-to-dash"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                </div>
+                
+                <div class="deck-header glass-panel">
+                    <div class="dh-info">
+                        <span class="dh-subject" id="dh-subject">SUBJECT</span>
+                        <h2 class="dh-title" id="dh-title">Deck Name</h2>
+                        <p class="dh-desc" id="dh-desc">Description goes here</p>
+                        <div class="dh-stats">
+                            <span id="dh-count">0 Cards</span> • 
+                            <span id="dh-mastery">Mastery: 0%</span>
+                        </div>
+                    </div>
+                    <div class="dh-actions">
+                        <button class="btn-glow outline" id="btn-start-review"><i class="fas fa-history"></i> REVIEW</button>
+                        <button class="btn-glow outline" id="btn-start-quiz"><i class="fas fa-question-circle"></i> QUIZ MODE</button>
+                        <button class="btn-glow" id="btn-start-study"><i class="fas fa-play"></i> STUDY</button>
+                    </div>
+                </div>
+
+                <div class="deck-management glass-panel">
+                    <div class="dm-header">
+                        <div class="dm-tabs">
+                            <button class="dm-tab active" data-filter="All">ALL CARDS</button>
+                            <button class="dm-tab" data-filter="Review">NEEDS REVIEW</button>
+                            <button class="dm-tab" data-filter="Mastered">MASTERED</button>
+                        </div>
+                        <div class="dm-controls">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="search-cards-input" placeholder="Search questions...">
+                            </div>
+                            <button class="btn-glow sm" id="btn-add-flashcard"><i class="fas fa-plus"></i> ADD CARD</button>
+                        </div>
+                    </div>
+                    
+                    <div class="cards-list" id="cards-management-list">
+                        <!-- Cards injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Study / Review View (3D Flashcards) -->
+            <div id="view-study" class="view-section" style="display: none;">
+                <div class="study-top-bar">
+                    <button class="btn-back" id="btn-exit-study"><i class="fas fa-times"></i> End Session</button>
+                    <div class="study-progress">
+                        <span id="study-counter-text">CARD 1 OF 10</span>
+                        <div class="study-progress-bar">
+                            <div class="study-progress-fill" id="study-progress-fill" style="width: 10%"></div>
+                        </div>
+                    </div>
+                    <button class="btn-flat" id="btn-shuffle-cards"><i class="fas fa-random"></i> SHUFFLE</button>
+                </div>
+
+                <div class="study-arena">
+                    <div class="flashcard-3d-wrapper" id="flashcard-3d">
+                        <div class="flashcard-inner" id="flashcard-inner">
+                            <!-- Front -->
+                            <div class="flashcard-front">
+                                <span class="fc-label">QUESTION</span>
+                                <div class="fc-content" id="fc-front-text">Question loading...</div>
+                                <div class="fc-hint" id="fc-hint-text"></div>
+                            </div>
+                            <!-- Back -->
+                            <div class="flashcard-back">
+                                <span class="fc-label">ANSWER</span>
+                                <div class="fc-content" id="fc-back-text">Answer loading...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-controls">
+                        <!-- Default Nav -->
+                        <div class="sc-nav" id="sc-nav-default">
+                            <button class="sc-btn" id="btn-prev-card"><i class="fas fa-arrow-left"></i> PREVIOUS</button>
+                            <button class="btn-glow large" id="btn-flip-card"><i class="fas fa-sync-alt"></i> FLIP</button>
+                            <button class="sc-btn" id="btn-next-card">NEXT <i class="fas fa-arrow-right"></i></button>
+                        </div>
+
+                        <!-- Rating Nav (Shows after flip) -->
+                        <div class="sc-rating" id="sc-nav-rating" style="display: none;">
+                            <h4 class="rating-title">HOW WELL DID YOU KNOW THIS?</h4>
+                            <div class="rating-buttons">
+                                <button class="rate-btn btn-again" data-rate="again">AGAIN</button>
+                                <button class="rate-btn btn-hard" data-rate="hard">HARD</button>
+                                <button class="rate-btn btn-good" data-rate="good">GOOD</button>
+                                <button class="rate-btn btn-easy" data-rate="easy">EASY</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Mode View -->
+            <div id="view-quiz" class="view-section" style="display: none;">
+                <div class="study-top-bar">
+                    <button class="btn-back" id="btn-exit-quiz"><i class="fas fa-times"></i> End Quiz</button>
+                    <div class="study-progress">
+                        <span id="quiz-counter-text">QUESTION 1/10</span>
+                        <div class="study-progress-bar">
+                            <div class="study-progress-fill" id="quiz-progress-fill" style="width: 10%"></div>
+                        </div>
+                    </div>
+                    <span></span> <!-- Spacer -->
+                </div>
+
+                <div class="quiz-arena glass-panel">
+                    <div id="quiz-question-container">
+                        <h3 class="quiz-question" id="quiz-question-text">Question loading...</h3>
+                        <div class="quiz-options" id="quiz-options-grid">
+                            <!-- Buttons injected via JS -->
+                        </div>
+                        <div class="quiz-feedback" id="quiz-feedback-box" style="display: none;">
+                            <div class="qf-status" id="qf-status-icon">✓ CORRECT</div>
+                            <div class="qf-correct-ans" id="qf-correct-ans-box" style="display: none;">
+                                <span>Correct Answer:</span>
+                                <strong id="qf-correct-text">Answer text</strong>
+                            </div>
+                            <button class="btn-glow" id="btn-quiz-next">NEXT QUESTION</button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Results -->
+                    <div id="quiz-results-container" style="display: none; text-align: center;">
+                        <h2 style="color: var(--primary-cyan); margin-bottom: 2rem;">QUIZ COMPLETE</h2>
+                        <div class="quiz-results-grid">
+                            <div class="qr-stat"><span>Score</span><strong id="qr-score">0 / 0</strong></div>
+                            <div class="qr-stat"><span>Accuracy</span><strong id="qr-accuracy">0%</strong></div>
+                            <div class="qr-stat"><span>Correct</span><strong id="qr-correct" style="color: var(--success)">0</strong></div>
+                            <div class="qr-stat"><span>Incorrect</span><strong id="qr-incorrect" style="color: var(--danger)">0</strong></div>
+                        </div>
+                        <div class="qr-actions">
+                            <button class="btn-glow outline" id="btn-retry-quiz">RETRY QUIZ</button>
+                            <button class="btn-glow" id="btn-quiz-to-deck">BACK TO DECK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modals -->
+
+    <!-- Create Deck Modal -->
+    <div class="modal-overlay" id="modal-deck">
+        <div class="modal-content glass-modal">
+            <div class="modal-header">
+                <h2>CREATE DECK</h2>
+                <button class="close-modal" id="close-deck-modal">&times;</button>
+            </div>
+            <form id="deck-form">
+                <div class="form-group">
+                    <label for="deck-name">Deck Name *</label>
+                    <input type="text" id="deck-name" placeholder="E.g. Database Internals" required>
+                </div>
+                <div class="form-group">
+                    <label for="deck-subject">Subject *</label>
+                    <select id="deck-subject" required>
+                        <option value="DBMS">DBMS</option>
+                        <option value="Python">Python</option>
+                        <option value="Web Programming">Web Programming</option>
+                        <option value="Advanced Networks">Advanced Networks</option>
+                        <option value="PL/SQL">PL/SQL</option>
+                        <option value="Artificial Intelligence">Artificial Intelligence</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="deck-desc">Description</label>
+                    <textarea id="deck-desc" rows="2" placeholder="Brief description of contents..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-flat" id="cancel-deck-btn">CANCEL</button>
+                    <button type="submit" class="btn-glow">CREATE DECK</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Flashcard Modal -->
+    <div class="modal-overlay" id="modal-flashcard">
+        <div class="modal-content glass-modal">
+            <div class="modal-header">
+                <h2 id="fc-modal-title">ADD FLASHCARD</h2>
+                <button class="close-modal" id="close-fc-modal">&times;</button>
+            </div>
+            <form id="fc-form">
+                <input type="hidden" id="fc-id">
+                <div class="form-group">
+                    <label for="fc-q">Question *</label>
+                    <textarea id="fc-q" rows="2" required placeholder="Enter the question..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="fc-a">Answer *</label>
+                    <textarea id="fc-a" rows="3" required placeholder="Enter the exact answer..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="fc-cat">Category</label>
+                        <input type="text" id="fc-cat" placeholder="E.g. Basics">
+                    </div>
+                    <div class="form-group half">
+                        <label for="fc-diff">Difficulty</label>
+                        <select id="fc-diff">
+                            <option value="Easy">Easy</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fc-hint">Hint (Optional)</label>
+                    <input type="text" id="fc-hint" placeholder="Short clue...">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-flat" id="cancel-fc-btn">CANCEL</button>
+                    <button type="submit" class="btn-glow">SAVE CARD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Quiz Config Modal -->
+    <div class="modal-overlay" id="modal-quiz-config">
+        <div class="modal-content glass-modal delete-modal">
+            <div class="modal-header">
+                <h2>START QUIZ</h2>
+            </div>
+            <p>Select the difficulty level for the multiple-choice questions.</p>
+            <div class="form-group">
+                <select id="quiz-config-diff" style="width: 100%;">
+                    <option value="Mixed">Mixed (All Cards)</option>
+                    <option value="Easy">Easy Cards</option>
+                    <option value="Medium">Medium Cards</option>
+                    <option value="Hard">Hard Cards</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-flat" id="cancel-quiz-config">CANCEL</button>
+                <button type="button" class="btn-glow" id="confirm-quiz-start">START</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirm Modal -->
+    <div class="modal-overlay" id="modal-delete">
+        <div class="modal-content glass-modal delete-modal">
+            <div class="modal-header">
+                <h2>DELETE FLASHCARD?</h2>
+            </div>
+            <p>Are you sure you want to delete this card? Mastery progress will be lost.</p>
+            <input type="hidden" id="del-card-id">
+            <div class="modal-actions">
+                <button type="button" class="btn-flat" id="cancel-del-btn">CANCEL</button>
+                <button type="button" class="btn-danger" id="confirm-del-btn">DELETE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toasts -->
+    <div id="toast-container" class="toast-container"></div>
+</body>
+<!-- 1. JARVIS Core Architecture (Must load first) -->
+<script src="../js/core/storage.js"></script>
+<script src="../js/core/navigation.js"></script>
+<script src="../js/core/notifications.js"></script>
+
+<!-- 2. Voice Components -->
+<script src="../js/core/voice-ui.js"></script>
+<script src="../js/voice/speech-recognition.js"></script>
+<script src="../js/voice/speech-synthesis.js"></script>
+<script src="../js/voice/commands.js"></script>
+
+<!-- 3. Master System Init (Initializes all the above) -->
+<script src="../js/core/api.js"></script>
+<script src="../js/core/system.js"></script>
+
+<!-- 4. Single Page Script (Loads last, uses the core) -->
+<!-- Use ONLY ONE of these depending on the HTML file -->
+<script src="../js/settings.js"></script>
+
+</html>

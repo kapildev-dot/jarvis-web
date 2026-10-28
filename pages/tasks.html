@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAPISH JARVIS – Task Management</title>
+    <!-- External Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tasks CSS -->
+    <link rel="stylesheet" href="../css/tasks.css">
+    <!-- Tasks JS -->
+    <script src="../js/tasks.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <span class="logo-main">KAPISH</span>
+            <span class="logo-sub">JARVIS</span>
+            <div class="sidebar-status">
+                <span class="status-dot"></span> SYSTEM ONLINE
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item active">
+        <i class="fa-solid fa-house"></i> Dashboard
+    </a>
+
+    <a href="study.html" class="nav-item">
+        <i class="fa-solid fa-book-open"></i> Study Zone
+    </a>
+
+    <a href="tasks.html" class="nav-item">
+        <i class="fa-solid fa-list-check"></i> Tasks
+    </a>
+
+    <a href="notes.html" class="nav-item">
+        <i class="fa-solid fa-file-lines"></i> Notes
+    </a>
+
+    <a href="1.pdf" class="nav-item" download>
+        <i class="fa-solid fa-calendar-days"></i> Academic Calendar
+    </a>
+
+    <a href="timetable.html" class="nav-item">
+        <i class="fa-solid fa-calendar-days"></i> Timetable
+    </a>
+
+    <a href="flashcards.html" class="nav-item">
+        <i class="fa-solid fa-layer-group"></i> Flashcards
+    </a>
+
+    <a href="ai-assistant.html" class="nav-item">
+        <i class="fa-solid fa-brain"></i> AI Assistant
+    </a>
+
+    <a href="settings.html" class="nav-item">
+        <i class="fa-solid fa-gear"></i> Settings
+    </a>
+</nav>
+
+        <div class="sidebar-footer">
+            <p>KAPISH JARVIS v1.0</p>
+            <span>Student Workspace</span>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-titles">
+                    <h1 class="header-title">TASK MANAGEMENT</h1>
+                    <span class="header-subtitle">Manage your assignments, projects and daily goals</span>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="notification-wrapper">
+                    <button class="icon-btn" id="notification-btn" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge" id="notif-badge-count">0</span>
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div class="notification-dropdown" id="notification-dropdown">
+                        <div class="dropdown-header">NOTIFICATIONS</div>
+                        <div id="notif-list">
+                            <!-- Dynamic notifications injected here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-area">
+                    <div class="avatar">K</div>
+                    <div class="profile-info">
+                        <span class="profile-name">Kapish</span>
+                        <span class="profile-role">MCA Student</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tasks Workspace -->
+        <div class="tasks-workspace">
+            
+            <!-- Greeting & Date -->
+            <section class="welcome-section">
+                <div>
+                    <h2 class="greeting" id="greeting-text">GOOD MORNING, KAPISH</h2>
+                    <p class="subtitle">Here is an overview of your current tasks.</p>
+                </div>
+                <div class="date-display" id="date-display">
+                    <!-- Injected by JS -->
+                </div>
+            </section>
+
+            <!-- Statistics Grid -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--primary-cyan); background: rgba(0, 240, 255, 0.1);"><i class="fas fa-layer-group"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">TOTAL TASKS</span>
+                        <span class="stat-value" id="stat-total">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--success); background: rgba(0, 230, 118, 0.1);"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">COMPLETED</span>
+                        <span class="stat-value" id="stat-completed">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--warning); background: rgba(255, 234, 0, 0.1);"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">PENDING</span>
+                        <span class="stat-value" id="stat-pending">0</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-overdue">
+                    <div class="stat-icon" style="color: var(--danger); background: rgba(255, 23, 68, 0.1);"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">OVERDUE</span>
+                        <span class="stat-value" id="stat-overdue">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Task Controls (Search, Filters, Sort, Add) -->
+            <section class="task-controls glass-panel">
+                <div class="control-group search-group">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search tasks...">
+                </div>
+                
+                <div class="filters-group">
+                    <select id="filter-status" class="custom-select">
+                        <option value="All">All Tasks</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Overdue">Overdue</option>
+                    </select>
+
+                    <select id="filter-priority" class="custom-select">
+                        <option value="All">All Priorities</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+
+                    <select id="filter-category" class="custom-select">
+                        <option value="All">All Categories</option>
+                        <option value="Assignment">Assignment</option>
+                        <option value="Study">Study</option>
+                        <option value="Project">Project</option>
+                        <option value="Exam">Exam</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <select id="sort-tasks" class="custom-select">
+                        <option value="Newest">Newest</option>
+                        <option value="Oldest">Oldest</option>
+                        <option value="DueDate">Due Date</option>
+                        <option value="Priority">Priority</option>
+                    </select>
+                </div>
+
+                <button class="btn-glow" id="btn-add-task">
+                    <i class="fas fa-plus"></i> ADD NEW TASK
+                </button>
+            </section>
+
+            <!-- Main Workspace Grid -->
+            <div class="main-layout">
+                
+                <!-- Left Column (Tasks List & Progress) -->
+                <div class="layout-left">
+                    
+                    <div class="tasks-container" id="tasks-list">
+                        <!-- Tasks dynamically injected here -->
+                    </div>
+                    
+                    <!-- Empty State (Hidden by default) -->
+                    <div class="empty-state" id="empty-state" style="display: none;">
+                        <i class="fas fa-clipboard-check empty-icon"></i>
+                        <h3>NO TASKS FOUND</h3>
+                        <p>Your task list is clear. Time to focus on something new.</p>
+                        <button class="btn-glow outline" id="btn-empty-add">+ CREATE TASK</button>
+                    </div>
+
+                    <!-- Task Completion Progress -->
+                    <div class="glass-panel progress-panel">
+                        <div class="progress-header">
+                            <h3>TASK COMPLETION</h3>
+                            <span id="progress-text">0 / 0 Tasks Completed</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="task-progress-bar" style="width: 0%;"></div>
+                        </div>
+                        <span class="progress-percentage" id="progress-percentage">0%</span>
+                    </div>
+
+                </div>
+
+                <!-- Right Column (Today's Focus, Quick Actions, Voice) -->
+                <div class="layout-right">
+                    
+                    <!-- Today's Focus -->
+                    <div class="glass-panel focus-panel">
+                        <div class="panel-header">
+                            <h3>TODAY'S FOCUS</h3>
+                            <i class="fas fa-bullseye" style="color: var(--primary-cyan);"></i>
+                        </div>
+                        <div id="today-focus-list">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Voice Assistant -->
+                    <div class="glass-panel voice-card" id="voice-assistant-card">
+                        <h3>JARVIS VOICE CONTROL</h3>
+                        <div class="ai-orb" id="ai-orb">
+                            <div class="orb-ring ring-1"></div>
+                            <div class="orb-ring ring-2"></div>
+                            <div class="orb-center"><i class="fas fa-microphone"></i></div>
+                        </div>
+                        <p class="tap-text">TAP TO SPEAK</p>
+                        <div class="voice-feedback" id="voice-feedback">
+                            <p class="suggestion">Say:<br><i>"Show pending tasks"</i></p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="glass-panel quick-actions">
+                        <h3>QUICK ACTIONS</h3>
+                        <div class="qa-grid">
+                            <button class="qa-btn" id="qa-add-task"><i class="fas fa-plus"></i> Add Task</button>
+                            <button class="qa-btn" onclick="window.location.href='study.html'"><i class="fas fa-stopwatch"></i> Focus Mode</button>
+                            <button class="qa-btn" onclick="window.location.href='study.html'"><i class="fas fa-book-reader"></i> Open Study Zone</button>
+                            <button class="qa-btn" onclick="window.location.href='timetable.html'"><i class="fas fa-calendar-alt"></i> Open Timetable</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+
+    <!-- Add/Edit Task Modal -->
+    <div class="modal-overlay" id="task-modal">
+        <div class="modal-content glass-modal">
+            <div class="modal-header">
+                <h2 id="modal-title">ADD NEW TASK</h2>
+                <button class="close-modal" id="close-task-modal">&times;</button>
+            </div>
+            <form id="task-form">
+                <input type="hidden" id="task-id">
+                <div class="form-group">
+                    <label for="task-title">Task Title *</label>
+                    <input type="text" id="task-title" placeholder="E.g., Complete DBMS Transaction Notes" required>
+                </div>
+                <div class="form-group">
+                    <label for="task-desc">Description</label>
+                    <textarea id="task-desc" rows="3" placeholder="Add task details..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="task-category">Category</label>
+                        <select id="task-category">
+                            <option value="Assignment">Assignment</option>
+                            <option value="Study">Study</option>
+                            <option value="Project">Project</option>
+                            <option value="Exam">Exam</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group half">
+                        <label for="task-priority">Priority</label>
+                        <select id="task-priority">
+                            <option value="High">High</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="task-date">Due Date</label>
+                        <input type="date" id="task-date">
+                    </div>
+                    <div class="form-group half">
+                        <label for="task-time">Due Time</label>
+                        <input type="time" id="task-time">
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-flat" id="cancel-task-modal">CANCEL</button>
+                    <button type="submit" class="btn-glow" id="submit-task-btn">ADD TASK</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal-content glass-modal delete-modal">
+            <div class="modal-header">
+                <h2>DELETE TASK?</h2>
+            </div>
+            <p>Are you sure you want to delete this task? This action cannot be undone.</p>
+            <input type="hidden" id="delete-task-id">
+            <div class="modal-actions">
+                <button type="button" class="btn-flat" id="cancel-delete-modal">CANCEL</button>
+                <button type="button" class="btn-danger" id="confirm-delete-btn">DELETE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="toast-container"></div>
+<!-- JARVIS Core Architecture -->
+<!-- 1. JARVIS Core Architecture (Must load first) -->
+<script src="../js/core/storage.js"></script>
+<script src="../js/core/navigation.js"></script>
+<script src="../js/core/notifications.js"></script>
+
+<!-- 2. Voice Components -->
+<script src="../js/core/voice-ui.js"></script>
+<script src="../js/voice/speech-recognition.js"></script>
+<script src="../js/voice/speech-synthesis.js"></script>
+<script src="../js/voice/commands.js"></script>
+
+<!-- 3. Master System Init (Initializes all the above) -->
+<script src="../js/core/api.js"></script>
+<script src="../js/core/system.js"></script>
+
+<!-- 4. Single Page Script (Loads last, uses the core) -->
+<!-- Use ONLY ONE of these depending on the HTML file -->
+<script src="../js/settings.js"></script>
+</body>
+</html>

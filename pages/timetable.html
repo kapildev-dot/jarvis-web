@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAPISH JARVIS – Smart Timetable</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Timetable CSS -->
+    <link rel="stylesheet" href="../css/timetable.css">
+    <!-- Timetable JS -->
+    <script src="../js/timetable.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <span class="logo-main">KAPISH</span>
+            <span class="logo-sub">JARVIS</span>
+            <div class="sidebar-status">
+                <span class="status-dot"></span> SYSTEM ONLINE
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item active">
+        <i class="fa-solid fa-house"></i> Dashboard
+    </a>
+
+    <a href="study.html" class="nav-item">
+        <i class="fa-solid fa-book-open"></i> Study Zone
+    </a>
+
+    <a href="tasks.html" class="nav-item">
+        <i class="fa-solid fa-list-check"></i> Tasks
+    </a>
+
+    <a href="notes.html" class="nav-item">
+        <i class="fa-solid fa-file-lines"></i> Notes
+    </a>
+
+    <a href="1.pdf" class="nav-item" download>
+        <i class="fa-solid fa-calendar-days"></i> Academic Calendar
+    </a>
+
+    <a href="timetable.html" class="nav-item">
+        <i class="fa-solid fa-calendar-days"></i> Timetable
+    </a>
+
+    <a href="flashcards.html" class="nav-item">
+        <i class="fa-solid fa-layer-group"></i> Flashcards
+    </a>
+
+    <a href="ai-assistant.html" class="nav-item">
+        <i class="fa-solid fa-brain"></i> AI Assistant
+    </a>
+
+    <a href="settings.html" class="nav-item">
+        <i class="fa-solid fa-gear"></i> Settings
+    </a>
+</nav>
+
+        <div class="sidebar-footer">
+            <p>KAPISH JARVIS v1.0</p>
+            <span>Student Workspace</span>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-titles">
+                    <h1 class="header-title">SMART TIMETABLE</h1>
+                    <span class="header-subtitle">Your intelligent class schedule</span>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="live-clock-panel">
+                    <div id="live-time" class="live-time">10:42:18 AM</div>
+                    <div id="live-date" class="live-date">19 September 2026</div>
+                </div>
+
+                <div class="notification-wrapper">
+                    <button class="icon-btn" id="notification-btn" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge" id="notif-badge">0</span>
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div class="notification-dropdown" id="notification-dropdown">
+                        <div class="dropdown-header">NOTIFICATIONS</div>
+                        <div id="notif-list"></div>
+                    </div>
+                </div>
+                
+                <div class="profile-area">
+                    <div class="avatar">K</div>
+                    <div class="profile-info">
+                        <span class="profile-name">Kapish</span>
+                        <span class="profile-role">MCA Student</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Timetable Workspace -->
+        <div class="timetable-workspace">
+            
+            <!-- Welcome -->
+            <section class="welcome-section">
+                <div>
+                    <h2 class="greeting" id="greeting-text">GOOD MORNING, KAPISH</h2>
+                    <p class="subtitle">Here is your academic schedule for today.</p>
+                </div>
+            </section>
+
+            <!-- Top Stats -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--primary-cyan); background: rgba(0, 240, 255, 0.1);"><i class="fas fa-calendar-day"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">TODAY'S CLASSES</span>
+                        <span class="stat-value" id="stat-today-total">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--success); background: rgba(0, 230, 118, 0.1);"><i class="fas fa-check-double"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">COMPLETED</span>
+                        <span class="stat-value" id="stat-today-completed">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--warning); background: rgba(255, 234, 0, 0.1);"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">REMAINING</span>
+                        <span class="stat-value" id="stat-today-remaining">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--primary-purple); background: rgba(138, 43, 226, 0.1);"><i class="fas fa-forward"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-label">NEXT CLASS</span>
+                        <span class="stat-value" id="stat-next-class-time">--:--</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hero & Status Section -->
+            <section class="hero-section">
+                <!-- Next / Ongoing Class Card -->
+                <div class="hero-card glass-panel" id="hero-class-card">
+                    <!-- Injected dynamically by JS -->
+                    <div class="hero-content">
+                        <span class="hero-badge">LOADING TIMETABLE</span>
+                        <h2 class="hero-subject">Synchronizing Data...</h2>
+                    </div>
+                </div>
+
+                <!-- JARVIS Status Panel -->
+                <div class="jarvis-status-panel glass-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-microchip"></i> JARVIS SCHEDULER</h3>
+                    </div>
+                    <div class="status-lines">
+                        <div class="status-line"><span class="lbl">SYSTEM:</span><span class="val success">ONLINE</span></div>
+                        <div class="status-line"><span class="lbl">TIMETABLE:</span><span class="val">SYNCHRONIZED</span></div>
+                        <div class="status-line"><span class="lbl">TIME:</span><span class="val" id="jarvis-time">--:--</span></div>
+                        <div class="status-line"><span class="lbl">NEXT:</span><span class="val highlight" id="jarvis-next">--</span></div>
+                        <div class="status-line"><span class="lbl">STATUS:</span><span class="val text-cyan">MONITORING</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Controls (Search, Filters, Add) -->
+            <section class="control-panel glass-panel">
+                <div class="control-search">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search subject, room or instructor...">
+                </div>
+                <div class="control-filters">
+                    <select id="filter-type" class="custom-select">
+                        <option value="All">All Types</option>
+                        <option value="Lecture">Lectures</option>
+                        <option value="Lab">Labs</option>
+                        <option value="Break">Breaks</option>
+                    </select>
+                    <select id="filter-subject" class="custom-select">
+                        <option value="All">All Subjects</option>
+                        <!-- Injected dynamically -->
+                    </select>
+                    <button class="btn-glow" id="btn-add-class">
+                        <i class="fas fa-plus"></i> ADD CLASS
+                    </button>
+                </div>
+            </section>
+
+            <!-- Main Workspace Grid -->
+            <div class="main-layout">
+                
+                <!-- Left: Full Timetable -->
+                <div class="layout-left">
+                    <!-- Day Selector -->
+                    <div class="day-selector glass-panel" id="day-selector">
+                        <button class="day-btn" data-day="Monday">MON</button>
+                        <button class="day-btn" data-day="Tuesday">TUE</button>
+                        <button class="day-btn" data-day="Wednesday">WED</button>
+                        <button class="day-btn" data-day="Thursday">THU</button>
+                        <button class="day-btn" data-day="Friday">FRI</button>
+                        <button class="day-btn" data-day="Saturday">SAT</button>
+                        <button class="day-btn" data-day="Sunday">SUN</button>
+                    </div>
+
+                    <!-- Timetable View -->
+                    <div class="timetable-container glass-panel">
+                        <div class="timetable-header">
+                            <h3 id="current-view-title">MONDAY'S SCHEDULE</h3>
+                            <div class="date-selector">
+                                <button class="cal-btn" id="cal-prev"><i class="fas fa-chevron-left"></i></button>
+                                <span id="cal-current-date">--</span>
+                                <button class="cal-btn" id="cal-next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Desktop Table Header -->
+                        <div class="tt-table-header">
+                            <div class="th-time">TIME</div>
+                            <div class="th-subject">SUBJECT</div>
+                            <div class="th-room">ROOM</div>
+                            <div class="th-faculty">FACULTY</div>
+                            <div class="th-status">STATUS / ACTIONS</div>
+                        </div>
+
+                        <!-- Rendered Classes -->
+                        <div class="tt-body" id="timetable-body">
+                            <!-- JS Injection -->
+                        </div>
+                        
+                        <div class="empty-state" id="empty-timetable" style="display: none;">
+                            <i class="fas fa-calendar-times"></i>
+                            <h3>NO CLASSES SCHEDULED</h3>
+                            <p>Your academic schedule is clear for this day.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Widgets & AI -->
+                <div class="layout-right">
+                    
+                    <!-- Today's Schedule Mini-timeline -->
+                    <div class="glass-panel widget-panel">
+                        <div class="panel-header">
+                            <h3>TODAY'S SCHEDULE</h3>
+                            <i class="fas fa-list-alt" style="color: var(--primary-cyan);"></i>
+                        </div>
+                        <div class="timeline" id="today-timeline">
+                            <!-- JS Injection -->
+                        </div>
+                    </div>
+
+                    <!-- Weekly Overview -->
+                    <div class="glass-panel widget-panel">
+                        <div class="panel-header">
+                            <h3>WEEKLY OVERVIEW</h3>
+                            <i class="fas fa-chart-bar" style="color: var(--primary-purple);"></i>
+                        </div>
+                        <div class="bar-chart horizontal" id="weekly-overview-chart">
+                            <!-- JS Injection -->
+                        </div>
+                    </div>
+
+                    <!-- Subject Hours -->
+                    <div class="glass-panel widget-panel">
+                        <div class="panel-header">
+                            <h3>WEEKLY SUBJECT HOURS</h3>
+                            <i class="fas fa-book" style="color: var(--warning);"></i>
+                        </div>
+                        <div class="bar-chart horizontal" id="subject-hours-chart">
+                            <!-- JS Injection -->
+                        </div>
+                    </div>
+
+                    <!-- Attendance Summary -->
+                    <div class="glass-panel widget-panel">
+                        <div class="panel-header">
+                            <h3>ATTENDANCE SUMMARY</h3>
+                            <i class="fas fa-user-check" style="color: var(--success);"></i>
+                        </div>
+                        <div class="attendance-stats">
+                            <div class="att-row"><span class="lbl">Total Tracked:</span><strong id="att-total">0</strong></div>
+                            <div class="att-row"><span class="lbl">Present:</span><strong id="att-present" class="text-success">0</strong></div>
+                            <div class="att-row"><span class="lbl">Absent:</span><strong id="att-absent" class="text-danger">0</strong></div>
+                            <div class="att-progress-container">
+                                <div class="att-progress-bar"><div id="att-progress-fill" style="width: 0%"></div></div>
+                                <span id="att-percentage">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="glass-panel widget-panel">
+                        <h3>QUICK ACTIONS</h3>
+                        <div class="qa-grid">
+                            <button class="qa-btn" id="qa-add-class"><i class="fas fa-plus"></i> Add Class</button>
+                            <button class="qa-btn" id="qa-today"><i class="fas fa-calendar-day"></i> Today's Schedule</button>
+                            <button class="qa-btn" onclick="window.location.href='tasks.html'"><i class="fas fa-tasks"></i> Open Tasks</button>
+                            <button class="qa-btn" onclick="window.location.href='study.html'"><i class="fas fa-book-reader"></i> Open Study</button>
+                        </div>
+                    </div>
+
+                    <!-- JARVIS Voice Assistant -->
+                    <div class="glass-panel voice-card" id="voice-assistant-card">
+                        <h3>JARVIS VOICE CONTROL</h3>
+                        <div class="ai-orb" id="ai-orb">
+                            <div class="orb-ring ring-1"></div>
+                            <div class="orb-ring ring-2"></div>
+                            <div class="orb-center"><i class="fas fa-microphone"></i></div>
+                        </div>
+                        <p class="tap-text">TAP TO SPEAK</p>
+                        <div class="voice-feedback" id="voice-feedback">
+                            <p class="suggestion">Say:<br><i>"What's my next class?"</i></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+
+    <!-- Add/Edit Class Modal -->
+    <div class="modal-overlay" id="class-modal">
+        <div class="modal-content glass-modal">
+            <div class="modal-header">
+                <h2 id="modal-title">ADD NEW CLASS</h2>
+                <button class="close-modal" id="close-class-modal">&times;</button>
+            </div>
+            <form id="class-form">
+                <input type="hidden" id="class-id">
+                
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="class-day">Day *</label>
+                        <select id="class-day" required>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>
+                    </div>
+                    <div class="form-group half">
+                        <label for="class-type">Class Type *</label>
+                        <select id="class-type" required>
+                            <option value="Lecture">Lecture</option>
+                            <option value="Lab">Lab</option>
+                            <option value="Break">Break</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="class-subject">Subject Title *</label>
+                    <input type="text" id="class-subject" placeholder="E.g. Database Management System" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="class-start">Start Time *</label>
+                        <input type="time" id="class-start" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="class-end">End Time *</label>
+                        <input type="time" id="class-end" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="class-room">Room / Location</label>
+                        <input type="text" id="class-room" placeholder="E.g. E1-202">
+                    </div>
+                    <div class="form-group half">
+                        <label for="class-instructor">Instructor</label>
+                        <input type="text" id="class-instructor" placeholder="E.g. Dr. XYZ">
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-flat" id="cancel-class-modal">CANCEL</button>
+                    <button type="submit" class="btn-glow" id="submit-class-btn">SAVE CLASS</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal-content glass-modal delete-modal">
+            <div class="modal-header">
+                <h2>DELETE CLASS?</h2>
+            </div>
+            <p>Are you sure you want to remove this class from your timetable?</p>
+            <input type="hidden" id="delete-class-id">
+            <div class="modal-actions">
+                <button type="button" class="btn-flat" id="cancel-delete-modal">CANCEL</button>
+                <button type="button" class="btn-danger" id="confirm-delete-btn">DELETE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+<!-- JARVIS Core Architecture -->
+<!-- 1. JARVIS Core Architecture (Must load first) -->
+<script src="../js/core/storage.js"></script>
+<script src="../js/core/navigation.js"></script>
+<script src="../js/core/notifications.js"></script>
+
+<!-- 2. Voice Components -->
+<script src="../js/core/voice-ui.js"></script>
+<script src="../js/voice/speech-recognition.js"></script>
+<script src="../js/voice/speech-synthesis.js"></script>
+<script src="../js/voice/commands.js"></script>
+
+<!-- 3. Master System Init (Initializes all the above) -->
+<script src="../js/core/api.js"></script>
+<script src="../js/core/system.js"></script>
+
+<!-- 4. Single Page Script (Loads last, uses the core) -->
+<!-- Use ONLY ONE of these depending on the HTML file -->
+<script src="../js/settings.js"></script>
+</body>
+</html>

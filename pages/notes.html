@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAPISH JARVIS – Smart Notes Management</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Notes CSS -->
+    <link rel="stylesheet" href="../css/notes.css">
+    <!-- Notes JS -->
+    <script src="../js/notes.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <span class="logo-main">KAPISH</span>
+            <span class="logo-sub">JARVIS</span>
+            <div class="sidebar-status">
+                <span class="status-dot"></span> SYSTEM ONLINE
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item active">
+        <i class="fa-solid fa-house"></i> Dashboard
+    </a>
+
+    <a href="study.html" class="nav-item">
+        <i class="fa-solid fa-book-open"></i> Study Zone
+    </a>
+
+    <a href="tasks.html" class="nav-item">
+        <i class="fa-solid fa-list-check"></i> Tasks
+    </a>
+
+    <a href="notes.html" class="nav-item">
+        <i class="fa-solid fa-file-lines"></i> Notes
+    </a>
+
+    <a href="1.pdf" class="nav-item" download>
+        <i class="fa-solid fa-calendar-days"></i> Academic Calendar
+    </a>
+
+    <a href="timetable.html" class="nav-item">
+        <i class="fa-solid fa-calendar-days"></i> Timetable
+    </a>
+
+    <a href="flashcards.html" class="nav-item">
+        <i class="fa-solid fa-layer-group"></i> Flashcards
+    </a>
+
+    <a href="ai-assistant.html" class="nav-item">
+        <i class="fa-solid fa-brain"></i> AI Assistant
+    </a>
+
+    <a href="settings.html" class="nav-item">
+        <i class="fa-solid fa-gear"></i> Settings
+    </a>
+</nav>
+
+        <div class="sidebar-footer">
+            <p>KAPISH JARVIS v1.0</p>
+            <span>SYSTEM ONLINE</span>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-titles">
+                    <h1 class="header-title">SMART NOTES</h1>
+                    <span class="header-subtitle">Your digital knowledge workspace</span>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="notification-wrapper">
+                    <button class="icon-btn" id="notification-btn" aria-label="View notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge" id="notif-badge-count">0</span>
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div class="notification-dropdown" id="notification-dropdown">
+                        <div class="dropdown-header">NOTIFICATIONS</div>
+                        <div id="notif-list">
+                            <!-- Dynamic items injected here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-area">
+                    <div class="avatar">K</div>
+                    <div class="profile-info">
+                        <span class="profile-name">Kapish</span>
+                        <span class="profile-role">MCA Student</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Workspace Container -->
+        <div class="notes-workspace">
+            <!-- Dynamic Welcome Section -->
+            <section class="welcome-section">
+                <div>
+                    <h2 class="greeting" id="greeting-text">GOOD MORNING, KAPISH</h2>
+                    <p class="subtitle">Access your notes, study modules, and core knowledge records.</p>
+                </div>
+                <div class="date-display" id="date-display">
+                    <!-- Dynamic Date injected via JS -->
+                </div>
+            </section>
+
+            <!-- Statistics Grid -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--primary-cyan); background: rgba(0, 240, 255, 0.1);">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">TOTAL NOTES</span>
+                        <span class="stat-value" id="stat-total">0</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--primary-blue); background: rgba(0, 85, 255, 0.15);">
+                        <i class="fas fa-thumbtack"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">PINNED</span>
+                        <span class="stat-value" id="stat-pinned">0</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--warning); background: rgba(255, 234, 0, 0.1);">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">FAVORITES</span>
+                        <span class="stat-value" id="stat-favorites">0</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: var(--success); background: rgba(0, 230, 118, 0.1);">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">THIS WEEK</span>
+                        <span class="stat-value" id="stat-week">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Control Bar -->
+            <section class="control-panel glass-panel">
+                <div class="control-search">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search notes by title, content, subject, #tags... (Ctrl+F)">
+                </div>
+
+                <div class="control-filters">
+                    <!-- Subject Filter -->
+                    <select id="filter-subject" class="custom-select" aria-label="Filter by subject">
+                        <option value="All">All Subjects</option>
+                        <option value="Web Programming">Web Programming</option>
+                        <option value="DBMS">DBMS</option>
+                        <option value="Python">Python</option>
+                        <option value="Advanced Networks">Advanced Networks</option>
+                        <option value="PL/SQL">PL/SQL</option>
+                        <option value="Artificial Intelligence">Artificial Intelligence</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <!-- Scope Filter -->
+                    <select id="filter-scope" class="custom-select" aria-label="Filter by scope">
+                        <option value="All">All Notes</option>
+                        <option value="Pinned">Pinned Only</option>
+                        <option value="Favorites">Favorites Only</option>
+                    </select>
+
+                    <!-- Sort -->
+                    <select id="sort-notes" class="custom-select" aria-label="Sort notes">
+                        <option value="RecentlyUpdated">Recently Updated</option>
+                        <option value="RecentlyCreated">Recently Created</option>
+                        <option value="AZ">Title (A-Z)</option>
+                        <option value="ZA">Title (Z-A)</option>
+                    </select>
+
+                    <!-- View Toggle -->
+                    <div class="view-toggle-group">
+                        <button class="toggle-btn active" id="view-grid-btn" aria-label="Grid view" title="Grid View">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="toggle-btn" id="view-list-btn" aria-label="List view" title="List View">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+
+                    <!-- New Note Button -->
+                    <button class="btn-glow" id="btn-new-note">
+                        <i class="fas fa-plus"></i> NEW NOTE
+                    </button>
+                </div>
+            </section>
+
+            <!-- Workspace Layout: Left Content & Right Sidebar Widgets -->
+            <div class="main-layout">
+                <!-- Left Notes Container -->
+                <div class="layout-left">
+                    <!-- Active Tag Indicator (Hidden by default) -->
+                    <div class="active-tag-banner" id="active-tag-banner" style="display: none;">
+                        <span>Filtering by Tag: <strong id="active-tag-name">#tag</strong></span>
+                        <button id="clear-tag-btn" class="clear-tag"><i class="fas fa-times"></i> Clear</button>
+                    </div>
+
+                    <!-- Notes Grid/List -->
+                    <div class="notes-container grid-view" id="notes-container">
+                        <!-- Note cards dynamic injection -->
+                    </div>
+
+                    <!-- Empty State -->
+                    <div class="empty-state" id="empty-state" style="display: none;">
+                        <i class="fas fa-file-alt empty-icon"></i>
+                        <h3>NO NOTES FOUND</h3>
+                        <p>Your knowledge base is empty here.<br>Create a new note and start building your knowledge.</p>
+                        <button class="btn-glow outline" id="btn-empty-create">+ CREATE NOTE</button>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar Widgets -->
+                <div class="layout-right">
+                    <!-- Recently Updated -->
+                    <div class="glass-panel widget-panel">
+                        <div class="panel-header">
+                            <h3>RECENTLY UPDATED</h3>
+                            <i class="fas fa-history" style="color: var(--primary-cyan);"></i>
+                        </div>
+                        <div class="recent-notes-list" id="recent-notes-list">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Subject Knowledge Distribution -->
+                    <div class="glass-panel widget-panel">
+                        <div class="panel-header">
+                            <h3>SUBJECT KNOWLEDGE</h3>
+                            <i class="fas fa-brain" style="color: var(--primary-purple);"></i>
+                        </div>
+                        <div class="subject-knowledge-list" id="subject-knowledge-list">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Knowledge Base Distribution Chart -->
+                    <div class="glass-panel widget-panel">
+                        <div class="panel-header">
+                            <h3>YOUR KNOWLEDGE BASE</h3>
+                            <i class="fas fa-chart-bar" style="color: var(--primary-cyan);"></i>
+                        </div>
+                        <div class="kb-meta-stats">
+                            <div class="kb-stat"><span class="label">Subjects Covered</span><strong id="kb-subjects-count">0</strong></div>
+                            <div class="kb-stat"><span class="label">Pinned / Fav</span><strong id="kb-pin-fav-count">0 / 0</strong></div>
+                        </div>
+                        <div class="custom-bar-chart" id="knowledge-bars-container">
+                            <!-- Pure HTML/CSS Bars Injected Here -->
+                        </div>
+                    </div>
+
+                    <!-- Voice Assistant Widget -->
+                    <div class="glass-panel voice-card" id="voice-assistant-card">
+                        <h3>JARVIS VOICE CONTROL</h3>
+                        <div class="ai-orb" id="ai-orb" tabindex="0" role="button" aria-label="Activate voice assistant">
+                            <div class="orb-ring ring-1"></div>
+                            <div class="orb-ring ring-2"></div>
+                            <div class="orb-center"><i class="fas fa-microphone"></i></div>
+                        </div>
+                        <p class="tap-text">TAP TO SPEAK</p>
+                        <div class="voice-feedback" id="voice-feedback">
+                            <p class="suggestion">Try saying:<br><i>"Create note" or "Search DBMS"</i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+
+    <!-- Note Editor / Creator Modal -->
+    <div class="modal-overlay" id="editor-modal">
+        <div class="modal-content glass-modal editor-modal-content">
+            <div class="modal-header">
+                <div class="header-edit-info">
+                    <h2 id="editor-modal-title">NEW NOTE</h2>
+                    <span class="save-indicator" id="auto-save-status"><i class="fas fa-circle"></i> SAVED</span>
+                </div>
+                <button class="close-modal" id="close-editor-modal" aria-label="Close modal">&times;</button>
+            </div>
+
+            <form id="note-form">
+                <input type="hidden" id="note-id">
+                
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="note-title-input">Note Title *</label>
+                        <input type="text" id="note-title-input" placeholder="e.g. DBMS Normal Forms & Anomalies" required>
+                    </div>
+                    <div class="form-group flex-1">
+                        <label for="note-subject-input">Subject *</label>
+                        <select id="note-subject-input" required>
+                            <option value="Web Programming">Web Programming</option>
+                            <option value="DBMS">DBMS</option>
+                            <option value="Python">Python</option>
+                            <option value="Advanced Networks">Advanced Networks</option>
+                            <option value="PL/SQL">PL/SQL</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Content Toolbar -->
+                <div class="editor-toolbar">
+                    <button type="button" class="toolbar-btn" data-command="bold" title="Bold"><i class="fas fa-bold"></i></button>
+                    <button type="button" class="toolbar-btn" data-command="italic" title="Italic"><i class="fas fa-italic"></i></button>
+                    <button type="button" class="toolbar-btn" data-command="underline" title="Underline"><i class="fas fa-underline"></i></button>
+                    <div class="toolbar-sep"></div>
+                    <button type="button" class="toolbar-btn" data-command="formatBlock" data-val="H1" title="Heading 1">H1</button>
+                    <button type="button" class="toolbar-btn" data-command="formatBlock" data-val="H2" title="Heading 2">H2</button>
+                    <div class="toolbar-sep"></div>
+                    <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+                    <button type="button" class="toolbar-btn" data-command="insertOrderedList" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                    <button type="button" class="toolbar-btn" id="btn-format-code" title="Code Block"><i class="fas fa-code"></i></button>
+                </div>
+
+                <!-- Editable Content Area -->
+                <div class="form-group">
+                    <label>Note Content *</label>
+                    <div class="rich-editor" id="note-content-editor" contenteditable="true" data-placeholder="Start typing your academic notes here..."></div>
+                </div>
+
+                <!-- Tags Input -->
+                <div class="form-group">
+                    <label for="note-tags-input">Tags (comma separated)</label>
+                    <input type="text" id="note-tags-input" placeholder="e.g. database, normalization, exam">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-flat" id="cancel-editor-btn">CANCEL</button>
+                    <button type="submit" class="btn-glow" id="save-note-btn">SAVE NOTE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Note Detail Viewer Modal -->
+    <div class="modal-overlay" id="viewer-modal">
+        <div class="modal-content glass-modal viewer-modal-content">
+            <div class="viewer-header">
+                <div>
+                    <span class="viewer-subject" id="viewer-subject">DBMS</span>
+                    <h2 class="viewer-title" id="viewer-title">Note Title</h2>
+                </div>
+                <button class="close-modal" id="close-viewer-modal" aria-label="Close viewer">&times;</button>
+            </div>
+
+            <div class="viewer-tags-container" id="viewer-tags">
+                <!-- Injected via JS -->
+            </div>
+
+            <div class="viewer-divider"></div>
+
+            <div class="viewer-body" id="viewer-content">
+                <!-- HTML Content Injected Here -->
+            </div>
+
+            <div class="viewer-divider"></div>
+
+            <div class="viewer-footer">
+                <div class="viewer-timestamps">
+                    <span id="viewer-created">Created: --</span>
+                    <span id="viewer-updated">Updated: --</span>
+                </div>
+                <div class="viewer-actions">
+                    <button class="viewer-btn" id="viewer-pin-btn" title="Toggle Pin"><i class="fas fa-thumbtack"></i> PIN</button>
+                    <button class="viewer-btn" id="viewer-fav-btn" title="Toggle Favorite"><i class="fas fa-star"></i> FAVORITE</button>
+                    <button class="viewer-btn highlight" id="viewer-edit-btn" title="Edit Note"><i class="fas fa-edit"></i> EDIT</button>
+                    <button class="viewer-btn danger" id="viewer-del-btn" title="Delete Note"><i class="fas fa-trash-alt"></i> DELETE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal-content glass-modal delete-modal">
+            <div class="modal-header">
+                <h2>DELETE NOTE?</h2>
+            </div>
+            <p>Are you sure you want to delete this note? This operation cannot be reversed.</p>
+            <input type="hidden" id="delete-note-id">
+            <div class="modal-actions">
+                <button type="button" class="btn-flat" id="cancel-delete-modal">CANCEL</button>
+                <button type="button" class="btn-danger" id="confirm-delete-btn">DELETE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications System -->
+    <div class="toast-container" id="toast-container"></div>
+<!-- JARVIS Core Architecture -->
+<!-- 1. JARVIS Core Architecture (Must load first) -->
+<script src="../js/core/storage.js"></script>
+<script src="../js/core/navigation.js"></script>
+<script src="../js/core/notifications.js"></script>
+
+<!-- 2. Voice Components -->
+<script src="../js/core/voice-ui.js"></script>
+<script src="../js/voice/speech-recognition.js"></script>
+<script src="../js/voice/speech-synthesis.js"></script>
+<script src="../js/voice/commands.js"></script>
+
+<!-- 3. Master System Init (Initializes all the above) -->
+<script src="../js/core/api.js"></script>
+<script src="../js/core/system.js"></script>
+
+<!-- 4. Single Page Script (Loads last, uses the core) -->
+<!-- Use ONLY ONE of these depending on the HTML file -->
+<script src="../js/settings.js"></script>
+</body>
+</html>

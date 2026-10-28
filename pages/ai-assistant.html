@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant - KAPISH JARVIS</title>
+    <link rel="stylesheet" href="../css/ai-assistant.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <i class="fa-solid fa-microchip logo-icon"></i>
+                    <h1 class="logo-text">KAPISH<br><span>JARVIS</span></h1>
+                </div>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item active">
+        <i class="fa-solid fa-house"></i> Dashboard
+    </a>
+
+    <a href="study.html" class="nav-item">
+        <i class="fa-solid fa-book-open"></i> Study Zone
+    </a>
+
+    <a href="tasks.html" class="nav-item">
+        <i class="fa-solid fa-list-check"></i> Tasks
+    </a>
+
+    <a href="notes.html" class="nav-item">
+        <i class="fa-solid fa-file-lines"></i> Notes
+    </a>
+
+    <a href="1.pdf" class="nav-item" download>
+        <i class="fa-solid fa-calendar-days"></i> Academic Calendar
+    </a>
+
+    <a href="timetable.html" class="nav-item">
+        <i class="fa-solid fa-calendar-days"></i> Timetable
+    </a>
+
+    <a href="flashcards.html" class="nav-item">
+        <i class="fa-solid fa-layer-group"></i> Flashcards
+    </a>
+
+    <a href="ai-assistant.html" class="nav-item">
+        <i class="fa-solid fa-brain"></i> AI Assistant
+    </a>
+
+    <a href="settings.html" class="nav-item">
+        <i class="fa-solid fa-gear"></i> Settings
+    </a>
+</nav>
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <div class="status-indicator online"></div>
+                    <span>SYSTEM ONLINE</span>
+                </div>
+                <div class="version-info">KAPISH JARVIS v1.0</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-title">
+                    <h2>JARVIS AI CORE</h2>
+                    <span class="subtitle">Your intelligent student assistant</span>
+                </div>
+                <div class="header-controls">
+                    <div class="time-display" id="currentTime">00:00:00</div>
+                    <div class="system-badge online">
+                        <i class="fa-solid fa-satellite-dish"></i> ONLINE
+                    </div>
+                    <button class="icon-btn" aria-label="Notifications" id="notificationBtn">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <div class="profile-avatar">
+                        <i class="fa-solid fa-user-astronaut"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="assistant-layout">
+                <!-- Left Panel: History & Settings -->
+                <aside class="left-panel">
+                    <button class="btn-new-chat" id="newChatBtn">
+                        <i class="fa-solid fa-plus"></i> NEW CHAT
+                    </button>
+                    
+                    <div class="panel-section history-section">
+                        <h3>CONVERSATION HISTORY</h3>
+                        <div class="history-list" id="historyList">
+                            <!-- Populated by JS -->
+                        </div>
+                        <button class="btn-clear-chat" id="clearChatBtn">
+                            <i class="fa-solid fa-trash-can"></i> CLEAR CHAT
+                        </button>
+                    </div>
+
+                    <div class="panel-section voice-settings">
+                        <h3>VOICE SETTINGS</h3>
+                        <div class="setting-item">
+                            <span>Voice Response</span>
+                            <label class="switch">
+                                <input type="checkbox" id="voiceToggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item vertical">
+                            <div class="slider-label"><span>Speech Rate</span> <span id="rateVal">1.0</span></div>
+                            <input type="range" id="speechRate" min="0.5" max="2" step="0.1" value="1.0">
+                        </div>
+                        <div class="setting-item vertical">
+                            <div class="slider-label"><span>Volume</span> <span id="volVal">1.0</span></div>
+                            <input type="range" id="speechVolume" min="0" max="1" step="0.1" value="1.0">
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Center Panel: AI Core & Chat -->
+                <section class="center-panel">
+                    <!-- AI Core Visualization -->
+                    <div class="ai-core-container ai-idle" id="aiCore">
+                        <div class="core-rings">
+                            <div class="ring outer-ring"></div>
+                            <div class="ring middle-ring"></div>
+                            <div class="ring inner-ring"></div>
+                            <div class="orb">
+                                <span>JARVIS</span>
+                            </div>
+                            <div class="particles" id="coreParticles"></div>
+                        </div>
+                        <div class="core-status" id="coreStatus" aria-live="polite">AI CORE ONLINE<br>READY FOR COMMAND</div>
+                    </div>
+
+                    <!-- Chat Interface -->
+                    <div class="chat-interface">
+                        <div class="chat-header">
+                            <h3>JARVIS CONVERSATION</h3>
+                            <div id="aiConnectionStatus" class="connection-status local">LOCAL MODE</div>
+                        </div>
+                        
+                        <div class="chat-messages" id="chatMessages">
+                            <!-- Messages go here -->
+                        </div>
+
+                        <!-- Typing Indicator -->
+                        <div class="typing-indicator hidden" id="typingIndicator">
+                            <div class="typing-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="typing-text">JARVIS is thinking...</span>
+                        </div>
+
+                        <!-- Quick Prompts -->
+                        <div class="quick-prompts" id="quickPrompts">
+                            <span class="prompt-title">WHAT CAN I DO FOR YOU?</span>
+                            <div class="prompt-chips">
+                                <button class="prompt-chip">What's my next class?</button>
+                                <button class="prompt-chip">Show pending tasks</button>
+                                <button class="prompt-chip">Create study plan</button>
+                                <button class="prompt-chip">Explain DBMS</button>
+                                <button class="prompt-chip">Start focus session</button>
+                                <button class="prompt-chip">Quiz me</button>
+                            </div>
+                        </div>
+
+                        <!-- Chat Input -->
+                        <div class="chat-input-container">
+                            <div class="input-wrapper">
+                                <button class="voice-btn" id="voiceBtn" aria-label="Start Voice Command">
+                                    <i class="fa-solid fa-microphone"></i>
+                                </button>
+                                <textarea id="chatInput" placeholder="Ask JARVIS anything... (Shift+Enter for new line)"></textarea>
+                                <button class="send-btn" id="sendBtn" aria-label="Send Message">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            <div class="live-transcription hidden" id="liveTranscription">
+                                You said: "<span id="transcriptionText"></span>"
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Panel: Context & Privacy -->
+                <aside class="right-panel">
+                    <div class="panel-section context-snapshot">
+                        <h3>YOUR JARVIS SNAPSHOT</h3>
+                        <div class="snapshot-grid">
+                            <div class="snap-card">
+                                <i class="fa-solid fa-list-check"></i>
+                                <span class="snap-label">Pending Tasks</span>
+                                <span class="snap-value" id="snapTasks">--</span>
+                            </div>
+                            <div class="snap-card">
+                                <i class="fa-solid fa-calendar-day"></i>
+                                <span class="snap-label">Today's Classes</span>
+                                <span class="snap-value" id="snapClasses">--</span>
+                            </div>
+                            <div class="snap-card">
+                                <i class="fa-solid fa-clock"></i>
+                                <span class="snap-label">Study Minutes</span>
+                                <span class="snap-value" id="snapStudy">--</span>
+                            </div>
+                            <div class="snap-card">
+                                <i class="fa-solid fa-file-lines"></i>
+                                <span class="snap-label">Notes</span>
+                                <span class="snap-value" id="snapNotes">--</span>
+                            </div>
+                            <div class="snap-card">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span class="snap-label">Flashcards</span>
+                                <span class="snap-value" id="snapCards">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-section today-focus">
+                        <h3>TODAY'S FOCUS</h3>
+                        <div class="focus-item">
+                            <span class="focus-label">Next Class</span>
+                            <span class="focus-desc" id="focusNextClass">Loading...</span>
+                        </div>
+                        <div class="focus-item">
+                            <span class="focus-label">Priority Task</span>
+                            <span class="focus-desc" id="focusPriorityTask">Loading...</span>
+                        </div>
+                        <div class="focus-item">
+                            <span class="focus-label">Study Goal</span>
+                            <span class="focus-desc" id="focusStudyGoal">-- / 120 min</span>
+                        </div>
+                    </div>
+
+                    <div class="panel-section ai-privacy">
+                        <h3>JARVIS PRIVACY & STATUS</h3>
+                        <ul class="privacy-list">
+                            <li><i class="fa-solid fa-check"></i> Local commands processed in browser</li>
+                            <li><i class="fa-solid fa-check"></i> Conversations saved in LocalStorage</li>
+                            <li><i class="fa-regular fa-circle"></i> External AI NOT CONNECTED</li>
+                            <li><i class="fa-solid fa-shield-halved"></i> No API keys stored in frontend</li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+
+    <!-- Notification Dropdown -->
+    <div class="notification-dropdown" id="notificationDropdown">
+        <h4>NOTIFICATIONS</h4>
+        <div class="notif-list" id="notifList">
+            <div class="notif-item">
+                <i class="fa-solid fa-brain"></i>
+                <div>
+                    <strong>JARVIS READY</strong>
+                    <p>AI Core initialized.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clear Chat Modal -->
+    <div class="modal-overlay" id="clearChatModal">
+        <div class="modal">
+            <h3>CLEAR CONVERSATION?</h3>
+            <p>This will remove the current chat from the interface.</p>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="cancelClearBtn">CANCEL</button>
+                <button class="btn-danger" id="confirmClearBtn">CLEAR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../js/ai-assistant.js"></script>
+<!-- 1. JARVIS Core Architecture (Must load first) -->
+<script src="../js/core/storage.js"></script>
+<script src="../js/core/navigation.js"></script>
+<script src="../js/core/notifications.js"></script>
+
+<!-- 2. Voice Components -->
+<script src="../js/core/voice-ui.js"></script>
+<script src="../js/voice/speech-recognition.js"></script>
+<script src="../js/voice/speech-synthesis.js"></script>
+<script src="../js/voice/commands.js"></script>
+
+<!-- 3. Master System Init (Initializes all the above) -->
+<script src="../js/core/api.js"></script>
+<script src="../js/core/system.js"></script>
+
+<!-- 4. Single Page Script (Loads last, uses the core) -->
+<!-- Use ONLY ONE of these depending on the HTML file -->
+<script src="../js/settings.js"></script>
+</body>
+</html>
